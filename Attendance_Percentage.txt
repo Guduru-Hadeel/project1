@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <string.h>
+struct Student
+{
+    int id;
+    char name[50];
+    int classesAttended;
+    int totalClasses;
+    float attendancePercentage;
+};
+void calculateAttendancePercentage(struct Student *student) 
+{
+    if (student->totalClasses > 0) 
+    {
+        student->attendancePercentage = ((float)student->classesAttended / student->totalClasses) * 100;
+    } 
+    else 
+    {
+        student->attendancePercentage = 0;
+    }
+}
+void inputStudentDetails(struct Student students[], int studentCount) 
+{
+    for (int i = 0; i < studentCount; i++) 
+    {
+        printf("Enter details for student %d\n", i + 1);
+        printf("Enter Student ID: ");
+        scanf("%d", &students[i].id);
+        printf("Enter Student Name: ");
+        scanf("%s", students[i].name);
+        printf("Enter Total Classes: ");
+        scanf("%d", &students[i].totalClasses);
+        printf("Enter Classes Attended: ");
+        scanf("%d", &students[i].classesAttended);
+        calculateAttendancePercentage(&students[i]);
+    }
+}
+void displayAttendanceDetails(struct Student students[], int studentCount) 
+{
+    printf("\nAttendance Record:\n");
+    for (int i = 0; i < studentCount; i++) 
+    {
+        printf("ID: %d\n",students[i].id);
+        printf("Name: %s\n",students[i].name);
+        printf("Classes Attended: %d\n",students[i].classesAttended);
+        printf("Total Classes: %d\n",students[i].totalClasses);
+        printf("Attendance Percentage: %.2f%%\n",students[i].attendancePercentage);
+    }
+}
+int main() 
+{
+    struct Student students[100];
+    int studentCount;
+    printf("Enter number of students: ");
+    scanf("%d", &studentCount);
+    inputStudentDetails(students, studentCount);
+    displayAttendanceDetails(students, studentCount);
+    return 0;
+}
